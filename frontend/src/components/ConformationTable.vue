@@ -32,7 +32,7 @@ import type { Conformation } from '../types'
 
 const store = useProteinStore()
 const confs = computed(() => (store.result?.conformations || []).filter(c =>
-  store.selectedCluster === 'all' || c.cluster === store.selectedCluster
+  store.selectedRegion === 'all' || c.region === store.selectedRegion
 ))
 
 function onRowClick(row: Conformation) { store.selectConformation(row) }

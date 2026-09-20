@@ -6,6 +6,7 @@
     </header>
     <main class="app-main">
       <ControlPanel @sample="handleSample" />
+      <RegionConfigPanel />
       <div class="main-grid" v-if="store.result">
         <div class="plot-area"><RamachandranPlot /></div>
         <div class="viewer-area"><ProteinViewer3D /></div>
@@ -16,7 +17,9 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from "vue"
 import ControlPanel from "./components/ControlPanel.vue"
+import RegionConfigPanel from "./components/RegionConfigPanel.vue"
 import RamachandranPlot from "./components/RamachandranPlot.vue"
 import ProteinViewer3D from "./components/ProteinViewer3D.vue"
 import ConformationTable from "./components/ConformationTable.vue"
@@ -24,6 +27,7 @@ import { useProteinStore } from "./store/protein"
 import type { ProteinParams } from "./types"
 
 const store = useProteinStore()
+onMounted(() => store.fetchRegions())
 function handleSample(params: ProteinParams) { store.runSampling(params) }
 </script>
 
