@@ -6,6 +6,7 @@
     </header>
     <main class="app-main">
       <ControlPanel @sample="handleSample" />
+      <RegionConfig />
       <div class="main-grid" v-if="store.result">
         <div class="plot-area"><RamachandranPlot /></div>
         <div class="viewer-area"><ProteinViewer3D /></div>
@@ -17,6 +18,7 @@
 
 <script setup lang="ts">
 import ControlPanel from "./components/ControlPanel.vue"
+import RegionConfig from "./components/RegionConfig.vue"
 import RamachandranPlot from "./components/RamachandranPlot.vue"
 import ProteinViewer3D from "./components/ProteinViewer3D.vue"
 import ConformationTable from "./components/ConformationTable.vue"

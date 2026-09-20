@@ -29,10 +29,11 @@
 import { computed } from 'vue'
 import { useProteinStore } from '../store/protein'
 import type { Conformation } from '../types'
+import { REGION_LABELS } from '../utils/regions'
 
 const store = useProteinStore()
 const confs = computed(() => (store.result?.conformations || []).filter(c =>
-  store.selectedCluster === 'all' || c.cluster === store.selectedCluster
+  store.selectedRegion === 'all' || c.region === store.selectedRegion
 ))
 
 function onRowClick(row: Conformation) { store.selectConformation(row) }
@@ -40,10 +41,7 @@ function tagType(r: string) {
   const m: Record<string, any> = { 'alpha-helix': 'success', 'beta-sheet': 'danger', 'left-helix': 'warning' }
   return m[r] || 'info'
 }
-function regionLabel(r: string) {
-  const m: Record<string, string> = { 'alpha-helix': 'α-螺旋', 'beta-sheet': 'β-折叠', 'left-helix': '左手螺旋', 'disallowed': '禁阻区' }
-  return m[r] || r
-}
+function regionLabel(r: string) { return REGION_LABELS[r] || r }
 function exportCSV() {
   const header = 'id,phi,psi,energy,region,cluster\n'
   const rows = confs.value.map(c => `${c.id},${c.phi},${c.psi},${c.energy},${c.region},${c.cluster}`).join('\n')
